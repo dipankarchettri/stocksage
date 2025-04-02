@@ -49,3 +49,4 @@ websocket-client==1.8.0
 wheel==0.45.1
 wsproto==1.2.0
 yfinance==0.2.55
+feedparser==6.0.11
