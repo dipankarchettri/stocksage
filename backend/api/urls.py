@@ -1,16 +1,18 @@
 from django.urls import path
 from .views import (
-    get_stock_info, 
-    suggestions, 
-    home, 
-    get_random_stocks, 
-    get_historical_data,  # Import the historical data view
+    home, suggestions, get_stock_info, 
+    get_random_stocks, get_historical_data, 
+    get_stock_news, stock_analysis_view,  
+    # stock_indicators_view  # ✅ Uncomment if needed
 )
 
 urlpatterns = [
-    path("home/", home, name="home"),
-    path("stock/<str:security_id>/", get_stock_info, name="get_stock_info"),  
-    path("stock/<str:security_id>/history/", get_historical_data, name="get_historical_data"),  # Historical data
-    path("suggestions/", suggestions, name="stock_suggestions"),
-    path("random-stocks/", get_random_stocks, name="random_stocks"),
+    path('', home, name='home'),
+    path('suggestions/', suggestions, name='suggestions'),
+    path('stock/<str:security_id>/', get_stock_info, name='get_stock_info'),
+    path('news/<str:symbol>/', get_stock_news, name='get_stock_news'),
+    path('random-stocks/', get_random_stocks, name='get_random_stocks'),
+    path("stock/<str:security_id>/history/", get_historical_data, name="get_historical_data"),
+    path('analyze/<str:stock_name>/', stock_analysis_view, name='stock_analysis'),  
+    # path('indicators/<str:stock_symbol>/', stock_indicators_view, name='stock_indicators'),  # ✅ Uncomment if needed
 ]
