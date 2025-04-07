@@ -3,9 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { 
   Container, Typography, Grid, Card, CardContent, Divider, 
-  Box, Paper, AppBar, Toolbar, IconButton, Button, CircularProgress 
+  Box,IconButton, Button, CircularProgress 
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -18,7 +17,6 @@ import "@fontsource/poppins";
 const StockDetailsPage = () => {
   const { stockCode } = useParams();
   const [stockData, setStockData] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
   const [newsData, setNewsData] = useState([]);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
   const newsContainerRef = useRef(null);
@@ -62,16 +60,18 @@ const StockDetailsPage = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line 
     fetchStockDetails();
+// eslint-disable-next-line 
     fetchStockNews();
+    // eslint-disable-next-line 
     const interval = setInterval(fetchStockDetails, 60000);
+    // eslint-disable-next-line 
     return () => clearInterval(interval);
+    // eslint-disable-next-line 
   }, [stockCode]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchTerm);
-  };
+
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -121,43 +121,7 @@ const StockDetailsPage = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ bgcolor: colors.headerBg }}>
-        <Toolbar>
-          <Typography variant="h5" sx={{ fontFamily: "Poppins, sans-serif", fontWeight: "bold", color: "#FFFFFF" }}>
-            StockSage
-          </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Paper
-            component="form"
-            onSubmit={handleSearch}
-            sx={{ 
-              p: '2px 4px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              width: 300, 
-              borderRadius: 20,
-              boxShadow: 2
-            }}
-          >
-            <input 
-              placeholder="Search for Company" 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ 
-                border: "none", 
-                outline: "none", 
-                width: "100%", 
-                padding: "8px 12px",
-                borderRadius: "20px",
-                backgroundColor: "transparent"
-              }} 
-            />
-            <IconButton type="submit" sx={{ p: '10px', color: colors.headerBg }}>
-              <SearchIcon />
-            </IconButton>
-          </Paper>
-        </Toolbar>
-      </AppBar>
+      <Navbar />
       
       <Container maxWidth={false} sx={{ fontFamily: "Poppins, sans-serif", pt: 4, pb: 4, px: 6, bgcolor: colors.background, minHeight: "calc(100vh - 64px)" }}>
         {/* Stock Header */}
